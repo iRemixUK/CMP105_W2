@@ -1,5 +1,6 @@
 #include "Level.h"
 
+
 Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
@@ -30,19 +31,20 @@ void Level::handleInput()
 	{
 		window->close();
 	}
+	
+	std::cout << "Mouse: " << input->getMouseX() << ", "<< input->getMouseY() << "\n";
 }
 
 // Update game objects
 void Level::update()
 {
-
 }
 
 // Render level
 void Level::render()
 {
 	beginDraw();
-
+	
 	endDraw();
 }
 
