@@ -17,8 +17,12 @@ Level::~Level()
 // handle user input
 void Level::handleInput()
 {
-
-
+	// if W is pressed output to console
+	if (input->isKeyDown(sf::Keyboard::W))
+	{
+		input->setKeyUp(sf::Keyboard::W);
+		std::cout << "W was pressed\n";
+	}
 }
 
 // Update game objects
