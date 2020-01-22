@@ -18,10 +18,12 @@ Level::~Level()
 void Level::handleInput()
 {
 	// if W is pressed output to console
-	if (input->isKeyDown(sf::Keyboard::W))
+	if (input->isKeyDown(sf::Keyboard::J) && input->isKeyDown(sf::Keyboard::K) && input->isKeyDown(sf::Keyboard::L))
 	{
-		input->setKeyUp(sf::Keyboard::W);
-		std::cout << "W was pressed\n";
+		input->setKeyUp(sf::Keyboard::J);
+		input->setKeyUp(sf::Keyboard::K);
+		input->setKeyUp(sf::Keyboard::L);
+		std::cout << "J, K and L were pressed";
 	}
 }
 
