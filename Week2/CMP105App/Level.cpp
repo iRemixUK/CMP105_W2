@@ -25,6 +25,11 @@ void Level::handleInput()
 		input->setKeyUp(sf::Keyboard::L);
 		std::cout << "J, K and L were pressed";
 	}
+
+	if (input->isKeyDown(sf::Keyboard::Escape))
+	{
+		window->close();
+	}
 }
 
 // Update game objects
