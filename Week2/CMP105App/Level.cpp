@@ -14,11 +14,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	oldmouseposup.x = 0;
 	oldmouseposup.y = 0;
 	
-	
-
 	// Circle
 	circle.setRadius(25);
-	circle.setPosition(oldmousepos.x, oldmousepos.y);
 	circle.setFillColor(sf::Color::Blue);
 	circle.setOutlineColor(sf::Color::Red);
 	circle.setOutlineThickness(2.f);
@@ -31,6 +28,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
 	drag = false;
+	rclick = false;
 }
 
 Level::~Level()
@@ -78,6 +76,11 @@ void Level::handleInput()
 	distance.y = oldmouseposup.y - oldmouseposdown.y;
 	std::cout << distance.x << ", " << distance.y << "\n";
 
+	if (input->isMouseRDown())
+	{
+		rclick = true;
+	}
+
 }
 
 // Update game objects
@@ -95,10 +98,13 @@ void Level::render()
 {
 	beginDraw();
 	window->draw(text);
-	if (input->isMouseRDown())
+	
+	if (rclick == true)
 	{
-		//window->draw(circle);
+		circle.setPosition(input->getMouseX(), input->getMouseY());
+		rclick = false;
 	}
+	window->draw(circle);
 	endDraw();
 }
 

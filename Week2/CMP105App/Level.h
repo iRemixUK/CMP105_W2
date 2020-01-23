@@ -35,4 +35,5 @@ private:
 	sf::Text text;
 	sf::Event event;
 	bool drag;
+	bool rclick;
 };
