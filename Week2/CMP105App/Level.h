@@ -26,8 +26,13 @@ private:
 
 	// Add your object here
 	sf::Vector2i oldmousepos;
+	sf::Vector2i oldmouseposdown;
+	sf::Vector2i oldmouseposup;
+	sf::Vector2i distance;
+
+	sf::CircleShape circle;
 	sf::Font font;
 	sf::Text text;
 	sf::Event event;
-
+	bool drag;
 };

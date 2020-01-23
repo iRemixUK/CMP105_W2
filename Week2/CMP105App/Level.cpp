@@ -9,6 +9,28 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	// initialise game objects
 	oldmousepos.x = 0;
 	oldmousepos.y = 0;
+	oldmouseposdown.x = 0;
+	oldmouseposdown.y = 0;
+	oldmouseposup.x = 0;
+	oldmouseposup.y = 0;
+	
+	
+
+	// Circle
+	circle.setRadius(25);
+	circle.setPosition(oldmousepos.x, oldmousepos.y);
+	circle.setFillColor(sf::Color::Blue);
+	circle.setOutlineColor(sf::Color::Red);
+	circle.setOutlineThickness(2.f);
+
+	if (!font.loadFromFile("font/arial.ttf"))
+	{
+		std::cout << "Error loading text from file\n";
+	}
+	text.setFont(font);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Red);
+	drag = false;
 }
 
 Level::~Level()
@@ -35,8 +57,27 @@ void Level::handleInput()
 	
 	if (oldmousepos.x != input->getMouseX() || oldmousepos.y != input->getMouseY())
 	{
-		std::cout << "Mouse: " << input->getMouseX() << ", " << input->getMouseY() << "\n";
+		//std::cout << "Mouse: " << input->getMouseX() << ", " << input->getMouseY() << "\n";
 	}
+
+	if (input->isMouseLDown() && drag == false)
+	{
+		oldmouseposdown.x = input->getMouseX();
+		oldmouseposdown.y = input->getMouseY();
+		drag = true;
+	}
+	
+	if (!input->isMouseLDown() && drag == true)
+	{
+		oldmouseposup.x = input->getMouseX();
+		oldmouseposup.y = input->getMouseY();
+		drag = false;
+	}
+
+	distance.x = oldmouseposup.x - oldmouseposdown.x;
+	distance.y = oldmouseposup.y - oldmouseposdown.y;
+	std::cout << distance.x << ", " << distance.y << "\n";
+
 }
 
 // Update game objects
@@ -44,17 +85,9 @@ void Level::update()
 {
 	oldmousepos.x = input->getMouseX();
 	oldmousepos.y = input->getMouseY();
-
-	std::string mouse = "Mouse: " + std::to_string(input->getMouseX()) + ", " + std::to_string(input->getMouseY());
 	
-	if (!font.loadFromFile("font/arial.ttf"))
-	{
-		std::cout << "Error loading text from file\n";
-	}
-	text.setFont(font);
-	text.setString(mouse);
-	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
+	//std::string mouse = "Mouse: " + std::to_string(input->getMouseX()) + ", " + std::to_string(input->getMouseY());
+	//text.setString(mouse);
 }
 
 // Render level
@@ -62,6 +95,10 @@ void Level::render()
 {
 	beginDraw();
 	window->draw(text);
+	if (input->isMouseRDown())
+	{
+		//window->draw(circle);
+	}
 	endDraw();
 }
 
