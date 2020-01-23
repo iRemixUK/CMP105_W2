@@ -25,5 +25,9 @@ private:
 	Input* input;
 
 	// Add your object here
+	sf::Vector2i oldmousepos;
+	sf::Font font;
+	sf::Text text;
+	sf::Event event;
 
 };

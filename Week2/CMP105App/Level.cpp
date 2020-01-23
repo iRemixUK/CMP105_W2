@@ -7,7 +7,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
-
+	oldmousepos.x = 0;
+	oldmousepos.y = 0;
 }
 
 Level::~Level()
@@ -32,19 +33,35 @@ void Level::handleInput()
 		window->close();
 	}
 	
-	std::cout << "Mouse: " << input->getMouseX() << ", "<< input->getMouseY() << "\n";
+	if (oldmousepos.x != input->getMouseX() || oldmousepos.y != input->getMouseY())
+	{
+		std::cout << "Mouse: " << input->getMouseX() << ", " << input->getMouseY() << "\n";
+	}
 }
 
 // Update game objects
 void Level::update()
 {
+	oldmousepos.x = input->getMouseX();
+	oldmousepos.y = input->getMouseY();
+
+	std::string mouse = "Mouse: " + std::to_string(input->getMouseX()) + ", " + std::to_string(input->getMouseY());
+	
+	if (!font.loadFromFile("font/arial.ttf"))
+	{
+		std::cout << "Error loading text from file\n";
+	}
+	text.setFont(font);
+	text.setString(mouse);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Red);
 }
 
 // Render level
 void Level::render()
 {
 	beginDraw();
-	
+	window->draw(text);
 	endDraw();
 }
 
